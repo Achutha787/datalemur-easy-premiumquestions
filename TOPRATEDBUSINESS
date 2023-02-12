@@ -1,0 +1,24 @@
+Assume you are given the table below containing information on user reviews. Write a query to obtain the number and percentage of businesses that are top rated. A top-rated busines is defined as one whose reviews contain only 4 or 5 stars.
+
+Output the number of businesses and percentage of top rated businesses rounded to the nearest integer.
+
+Assumption:
+
+Each business has only one review (which is the business' average rating).
+P.S. It's an Easy question, so keep your solution simple and short! 😉
+
+reviews Table:
+Column Name	     Type
+business_id	     integer
+review_id	       integer
+review_stars	   integer
+review_date	     datetime
+
+SQL SCRIPT
+
+with cte as 
+(select count(*) as bus_count from reviews
+where review_stars>=4)
+select bus_count,
+round(100.0*bus_count/(select count(*) from reviews),0) 
+as pct from cte
