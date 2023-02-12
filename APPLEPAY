@@ -1,0 +1,26 @@
+Visa is analysing its partnership with ApplyPay. Calculate the total transaction volume for each merchant where the transaction was performed via ApplePay.
+
+Output the merchant ID and the total transactions. For merchants with no ApplePay transactions, output their total transaction volume as 0. Display the result in descending order of the transaction volume.
+
+Tip: You might want to check the spelling of the payment methods... just sayin' 👀
+
+transactions Table:
+Column Name	Type
+merchant_id	        integer
+transaction_amount	integer
+payment_method	    varchar
+
+SQL SCRIPT
+
+
+with cte as 
+(select merchant_id,
+case when payment_method ilike 'a%y'
+then sum(transaction_amount) else 0 end as total_transaction
+from transactions
+group by merchant_id,payment_method
+order by total_transaction desc)
+select merchant_id,sum(total_transaction) as total_transactions
+from cte
+group by merchant_id
+order by total_transactions desc
