@@ -1,0 +1,19 @@
+Assume you are given the table below containing tweet data.
+Write a query to obtain a histogram of tweets posted per user in 2022. 
+Output the tweet count per user as the bucket, and then the number of Twitter users who fall into that bucket.
+
+tweets Table:
+Column Name    	Type
+tweet_id	      integer
+user_id	        integer
+msg	            string
+tweet_date	    timestamp
+
+SQL script
+
+with cte as 
+(select user_id,count(tweet_id) as num_tweets from tweets
+where tweet_date between '2022-01-01' and '2022-12-31'
+group by user_id)
+select distinct num_tweets as tweet_bucket,count(user_id) as user_num
+from cte group by tweet_bucket
