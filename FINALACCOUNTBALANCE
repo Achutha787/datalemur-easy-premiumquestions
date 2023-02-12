@@ -1,0 +1,23 @@
+Given a table of bank deposits and withdrawals, return the final balance for each account.
+Assumption:
+All the transactions performed for each account are present in the table; no transactions are missing.
+transactions Table:
+Column Name	      Type
+transaction_id    integer
+account_id	      integer
+transaction_type	varchar
+amount	          decimal
+
+
+SQL SCRIPT
+
+with cte as 
+(select account_id,sum(amount) as total_Deposits 
+from transactions where transaction_type='Deposit'
+group by account_id),
+cte1 as (select account_id,sum(amount) as total_withdrawals
+from transactions where transaction_type='Withdrawal'
+group by account_id)
+select cte.account_id,cte.total_deposits-cte1.total_withdrawals AS
+final_balance from cte join cte1 on cte.account_id=cte1.account_id
+order by final_balance 
