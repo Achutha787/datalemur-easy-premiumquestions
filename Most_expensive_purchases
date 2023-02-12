@@ -1,0 +1,20 @@
+1)Amazon is trying to identify their high-end customers. 
+To do so, they first need your help to write a query that obtains the most expensive
+purchase made by each customer. Order the results by the most expensive purchase first.
+
+transactions Table:
+Column Name	Type
+transaction_id	       integer
+customer_id	           integer
+purchase_amount	       integer
+
+SQL SCRIPT
+
+with cte AS
+(select customer_id,purchase_amount
+as expensive_purchase,dense_rank()
+over(partition by customer_id order by purchase_amount desc) as dr
+from transactions
+group by customer_id,purchase_amount
+order by expensive_purchase desc)
+select customer_id,expensive_purchase from cte where dr=1
