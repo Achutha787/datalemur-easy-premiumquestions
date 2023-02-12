@@ -1,0 +1,20 @@
+As a Data Analyst on Snowflake's Marketing Analytics team, you're analyzing the CRM to determine 
+what percent of marketing touches were of type "webinar" in April 2022. Round your percentage to the nearest integer.
+Did you know? Marketing touches, also known as touch points are the brand's (Snowflake's) point of contact with the customers, from start to finish.
+
+marketing_touches Table:
+Column Name     	Type
+event_id	       integer
+contact_id	     integer
+event_type	     string
+event_date       date
+
+SQL SCRIPT
+
+select 
+ROUND(100.0*
+SUM(case when event_type = 'webinar' then 1 else 0 end)/count(*)) as web_pct
+from marketing_touches
+where EXTRACT(month from event_date) = 4
+
+
