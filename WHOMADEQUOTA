@@ -1,0 +1,19 @@
+As a data analyst on the Oracle Sales Operations team, you are given a list of salespeople’s deals, and the annual quota they need to hit.
+Write a query that outputs each employee id and whether they hit the quota or not ('yes' or 'no'). Order the results by employee id in ascending order.
+Definitions:
+deal_size: Deals acquired by a salesperson in the year. Each salesperson may have more than 1 deal.
+quota: Total annual quota for each salesperson.
+deals Table:
+Column Name	      Type
+employee_id	      integer
+deal_size       	integer
+
+SQL SCRIPT
+
+with cte AS
+(select employee_id,sum(deal_size) as total from deals 
+group by employee_id)
+select sq.employee_id,
+case when total>quota then 'yes' else 'no' end as made_quota
+from sales_quotas sq join cte on sq.employee_id=cte.employee_id
+order by sq.employee_id
