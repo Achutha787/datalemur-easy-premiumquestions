@@ -1,0 +1,25 @@
+Apple has a trade-in program where their customers can return the old iPhone device to Apple and Apple gives the customers the trade-in value (known as payout) of the device in cash.
+
+For each store, write a query of the total revenue from the trade-in. Order the result by the descending order.
+
+trade_in_transactions Table:
+Column Name	       Type
+transaction_id	   integer
+model_id	         integer
+store_id	         integer
+transaction_date	 date
+
+trade_in_payouts Table:
+Column Name	       Type
+model_id	         integer
+model_name	       string
+payout_amount	     integer
+
+SQL SCRIPT
+
+select store_id,sum(payout_amount) as total
+from trade_in_transactions tt join 
+trade_in_payouts tip on tt.model_id=tip.model_id
+group by store_id
+order by total desc;
+
