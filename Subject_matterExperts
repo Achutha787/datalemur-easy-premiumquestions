@@ -1,0 +1,11 @@
+You are trying to identify all Subject Matter Experts at Accenture. An employee is a subject matter expert 
+if they have 8 or more years of work experience in a given domain, or if they have 12 or more years of experience across 2 different domains.
+Write a query to return the employee id of all the subject matter experts.
+Notes:
+Question only asks for years of work experience across either 1 or 2 domains. You may disregard cases where an employee
+has years of experience in more than 2 domains.
+employee_expertise Table:
+Column Name	Type
+employee_id	          integer
+domain	              string
+years_of_experience	  integer
