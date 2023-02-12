@@ -1,0 +1,17 @@
+Intuit offers several tax filing products, such as TurboTax and QuickBooks, which come in multiple versions.
+Write a query to find the total number of filings that used TurboTax, and the total number of filings that used QuickBooks
+Assumption:
+As reflected in the table, a user can only file taxes once a year using one product.
+filed_taxes Table:
+Column Name	       Type
+filing_id	         integer
+user_id	           varchar
+filing_date      	datetime
+product	           varchar
+
+SQL SCRIPT
+
+select sum(case when product ilike '%urboT%' then 1 else 0 end ) as 
+turbotax_total,
+sum(case when product ilike '%uickB%' then 1 else 0 end) as 
+quickbooks_total from filed_taxes
